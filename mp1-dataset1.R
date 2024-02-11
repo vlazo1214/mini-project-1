@@ -39,7 +39,43 @@ var.test(wage_col ~ health_ins_col, data = df)
 # is NOT the same as for those who do not have health insurance.
 
 
+
 # Part (b): One-factor ANOVA test
+
+# Step 0: Assumptions
+
+# We assume that the population of the workers is approximately normal with
+# equal variance.
+
+# Step 1/2: Null and Alternative hypotheses
+
+# H_0: The mean wages are equal across all education levels
+# H_A: There are at least two means that are different.
+
+# Step 3/4: Finding the Test Statistic
+# After running the following line, we see that the p-value is <2e-16
+ts_oneway <- aov(wage ~ education, data = df)
+summary(ts_oneway)
+
+# Step 5: Conclusion
+
+# At alpha = 0.05, we reject the null hypothesis, as <2e-16 < 0.05. There is
+# sufficient evidence that there are at least two mean wages that are different.
+
+
+
+# Part (c): Blocking
+
+# Step 0: Assumptions
+
+# We assume that 
+
+# Step 1/2: Null and Alternative hypotheses
+
+# Step 3/4 Finding the Test Statistic
+
+# Step 5: Conclusion
+
 
 
 
