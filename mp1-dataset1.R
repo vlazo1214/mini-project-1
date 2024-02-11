@@ -2,10 +2,12 @@
 # STA 4163
 # Mini project 1, Dataset 1: Wage
 
-# Notes:
 
-
+# Auxiliary variables:
 Wage <- read_excel("Wage.xlsx")
+df <- data.frame(Wage)
+wage_col <- Wage$wage
+health_ins_col <- Wage$health_ins
 
 
 # Part (a): Hypothesis test
@@ -17,7 +19,7 @@ Wage <- read_excel("Wage.xlsx")
 # Shapiro test for normality
 # After running the following line, we see that the p-value < 0.05, therefore
 # showing proving the population's normality:
-shapiro.test(Wage$wage)
+shapiro.test(wage_col)
 
 # Step 1/2: Null and Alternative Hypotheses
 
@@ -26,11 +28,18 @@ shapiro.test(Wage$wage)
 # H_A: The variance of wages for those with health insurance is NOT the same as
 #      for those who do not have health insurance.
 
-# Step 3: Finding the Test Statistic
-# wage_variance_with <- var(Wage)
+# Step 3/4: Finding the Test Statistic
+# After running the following line, we can see the p-value is 1.812e-06
+var.test(wage_col ~ health_ins_col, data = df)
+
+# Step 5: Conclusion
+
+# At alpha = 0.05, we reject the null hypothesis, as 1.812e-06 < 0.05. There is
+# enough evidence to claim that the variance of wages for those with health insurance
+# is NOT the same as for those who do not have health insurance.
 
 
-
+# Part (b): One-factor ANOVA test
 
 
 
