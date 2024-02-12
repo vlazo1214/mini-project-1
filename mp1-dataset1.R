@@ -59,7 +59,7 @@ summary(ts_oneway)
 
 # Step 5: Conclusion
 
-# At alpha = 0.05, we reject the null hypothesis, as <2e-16 < 0.05. There is
+# At alpha = 0.05, we reject the null hypothesis, as 2e-16 < 0.05. There is
 # sufficient evidence that there are at least two mean wages that are different.
 
 
@@ -68,14 +68,38 @@ summary(ts_oneway)
 
 # Step 0: Assumptions
 
-# We assume that 
+# We assume that the population has a normal distribution, the blocks are randomly selected,
+# and the block variances are equal.
 
 # Step 1/2: Null and Alternative hypotheses
 
+# H_0: The two block means are equal.
+# H_A: The two block means are not equal.
+
 # Step 3/4 Finding the Test Statistic
+# After running the following line, we can see that the p-value is < 2e-16
+block_result <- aov(wage ~ education + as.factor(jobclass), data=df)
+summary(block_result)
 
 # Step 5: Conclusion
+# At alpha = 0.05, we reject the null hypothesis, as 2e-16 < 0.05. There is sufficient
+# evidence to show that blocking by job class was effective.
 
 
 
+# Part (d): Finding lowest/ highest mean wage (since blocking was effective)
+tukey_result <- TukeyHSD(block_result)
+print(tukey_result)
+
+# When running the print statement, we can see that:
+# The education level with the lowest mean wage was "HS Grad" and
+# the education level with the highest mean wage was "Advanced Degree"
+
+
+
+# Part (e): Two-factor ANOVA test
+
+# Step 0: Assumptions
+
+# We assume the normality and constant 
 
