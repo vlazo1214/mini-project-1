@@ -1,1 +1,1 @@
-# Mini project for STA 4163. 
+# Mini project 1 for STA 4163. 
