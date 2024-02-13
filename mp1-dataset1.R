@@ -4,10 +4,12 @@
 
 
 # Auxiliary variables:
-Wage <- read_excel("Wage.xlsx")
 df <- data.frame(Wage)
 wage_col <- Wage$wage
 health_ins_col <- Wage$health_ins
+
+attach(df)
+
 
 
 # Part (a): Hypothesis test
@@ -23,9 +25,9 @@ shapiro.test(wage_col)
 
 # Step 1/2: Null and Alternative Hypotheses
 
-# H_0: The variance of wages for those with health insurance is the same as
+# H_0: The variance of wages for those with health insurance IS the same as
 #      for those who do not have health insurance.
-# H_A: The variance of wages for those with health insurance is NOT the same as
+# H_A: The variance of wages for those with health insurance IS NOT the same as
 #      for those who do not have health insurance.
 
 # Step 3/4: Finding the Test Statistic
@@ -99,7 +101,37 @@ print(tukey_result)
 
 # Part (e): Two-factor ANOVA test
 
+
 # Step 0: Assumptions
 
-# We assume the normality and constant 
+# We assume that each factor-level combination has a normal distribution, the
+# response variance is constant for all treatments, and random and independent
+# samples are taken for each treatment.
 
+# Step 1/2: Null and Alternative hypotheses
+
+# H_0: There is NO interaction between the mean wages when comparing workers with health
+#      insurance and their education level (i.e. there is no difference in their means).
+
+# H_A: There IS an interaction between the mean wages when comparing workers with health
+#      insurance and their education level. (i.e. at least two means differ)
+
+
+# Step 3/4: Finding the test statistic
+ts_twoway <- aov(wage ~ education + health_ins + education * health_ins, data = df)
+summary(ts_twoway)
+
+# Alternative:
+
+# Tukey
+TukeyHSD(ts_twoway)
+plot(TukeyHSD(ts_twoway))
+
+
+# Conclusion
+
+# We see in the summary of the two-factor ANOVA test performed on line 122
+# that the p-value is 0.131, which is larger than alpha = 0.05, which means we
+# can conclude that there is enough evidence to show that the factors interact with each other. Although I saw that a
+# post-hoc wasn't necessary, I did include it to further demonstrate that the factors
+# interact with each other since there are lines that cross.
